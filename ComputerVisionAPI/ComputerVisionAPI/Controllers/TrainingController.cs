@@ -1,77 +1,54 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
+using Microsoft.Cognitive.CustomVision;
+using Microsoft.Cognitive.CustomVision.Models;
+using System.IO;
+using System.Threading;
 
 namespace ComputerVisionAPI.Controllers
 {
     public class TrainingController : ApiController
     {
-       
+
         // POST: api/Training
-        public async Task<HttpResponseMessage> Post(string tag, [FromBody]string value)
+        public void Post([FromBody]string value)
         {
-            Dictionary<string, object> dict = new Dictionary<string, object>();
             try
-            {
+            {   
+                    TrainingApiCredentials trainingCredentials = new TrainingApiCredentials("ea94a8906af14ac7a34df51ea4ba6750");
+                    TrainingApi trainingApi = new TrainingApi(trainingCredentials);
 
-                var httpRequest = HttpContext.Current.Request;
+                    Guid projectid = new Guid("57471653-6e79-455f-b874-ee00d1014c37");
+                    ProjectModel model = trainingApi.GetProject(projectid);
+                
+                    Console.WriteLine("\tTraining");
+                    var iteration = trainingApi.TrainProject(projectid);
 
-                foreach (string file in httpRequest.Files)
-                {
-                    HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.Created);
-
-                    var postedFile = httpRequest.Files[file];
-                    if (postedFile != null && postedFile.ContentLength > 0)
+                    // The returned iteration will be in progress, and can be queried periodically to see when it has completed
+                    while (iteration.Status == "Training")
                     {
+                        Thread.Sleep(1000);
 
-                        int MaxContentLength = 1024 * 1024 * 1; //Size = 1 MB
-
-                        IList<string> AllowedFileExtensions = new List<string> { ".jpg", ".gif", ".png" };
-                        var ext = postedFile.FileName.Substring(postedFile.FileName.LastIndexOf('.'));
-                        var extension = ext.ToLower();
-                        if (!AllowedFileExtensions.Contains(extension))
-                        {
-
-                            var message = string.Format("Please Upload image of type .jpg,.gif,.png.");
-
-                            dict.Add("error", message);
-                            return Request.CreateResponse(HttpStatusCode.BadRequest, dict);
-                        }
-                        else if (postedFile.ContentLength > MaxContentLength)
-                        {
-
-                            var message = string.Format("Please Upload a file upto 1 mb.");
-
-                            dict.Add("error", message);
-                            return Request.CreateResponse(HttpStatusCode.BadRequest, dict);
-                        }
-                        else
-                        {
-                            var filePath = HttpContext.Current.Server.MapPath("~/Userimage/kapeltol" + extension);
-                            //Userimage myfolder name where i want to save my image
-                            postedFile.SaveAs(filePath);
-
-                        }
+                        // Re-query the iteration to get it's updated status
+                        iteration = trainingApi.GetIteration(projectid, iteration.Id);
                     }
 
-                    var message1 = string.Format("Image Updated Successfully.");
-                    return Request.CreateErrorResponse(HttpStatusCode.Created, message1); ;
-                }
-                var res = string.Format("Please Upload a image.");
-                dict.Add("error", res);
-                return Request.CreateResponse(HttpStatusCode.NotFound, dict);
+                    // The iteration is now trained. Make it the default project endpoint
+                    iteration.IsDefault = true;
+                    trainingApi.UpdateIteration(projectid, iteration.Id, iteration);
+                    Console.WriteLine("Done!\n");
             }
-            catch (Exception ex)
+            catch (System.Exception e)
             {
-                var res = string.Format("some Message");
-                dict.Add("error", res);
-                return Request.CreateResponse(HttpStatusCode.NotFound, dict);
+                Console.WriteLine("Error when training model! Exception: " + e.Message);
             }
-        }        
+        }
     }
 }

@@ -71,3 +71,16 @@ C:\Demos\ComputerVisionBackend\ComputerVisionAPI\ComputerVisionAPI\bin\Microsoft
 C:\Demos\ComputerVisionBackend\ComputerVisionAPI\ComputerVisionAPI\obj\Debug\ComputerVisionAPI.csprojResolveAssemblyReference.cache
 C:\Demos\ComputerVisionBackend\ComputerVisionAPI\ComputerVisionAPI\obj\Debug\ComputerVisionAPI.dll
 C:\Demos\ComputerVisionBackend\ComputerVisionAPI\ComputerVisionAPI\obj\Debug\ComputerVisionAPI.pdb
+C:\Demos\ComputerVisionBackend\ComputerVisionAPI\ComputerVisionAPI\bin\Microsoft.Cognitive.CustomVision.Prediction.dll
+C:\Demos\ComputerVisionBackend\ComputerVisionAPI\ComputerVisionAPI\bin\Microsoft.Cognitive.CustomVision.Training.dll
+C:\Demos\ComputerVisionBackend\ComputerVisionAPI\ComputerVisionAPI\bin\Microsoft.ProjectOxford.Vision.dll
+C:\Demos\ComputerVisionBackend\ComputerVisionAPI\ComputerVisionAPI\bin\Microsoft.Rest.ClientRuntime.dll
+C:\Demos\ComputerVisionBackend\ComputerVisionAPI\ComputerVisionAPI\bin\System.IO.FileSystem.dll
+C:\Demos\ComputerVisionBackend\ComputerVisionAPI\ComputerVisionAPI\bin\System.IO.FileSystem.Primitives.dll
+C:\Demos\ComputerVisionBackend\ComputerVisionAPI\ComputerVisionAPI\bin\System.Net.Http.dll
+C:\Demos\ComputerVisionBackend\ComputerVisionAPI\ComputerVisionAPI\bin\System.Security.Cryptography.Algorithms.dll
+C:\Demos\ComputerVisionBackend\ComputerVisionAPI\ComputerVisionAPI\bin\System.Security.Cryptography.Encoding.dll
+C:\Demos\ComputerVisionBackend\ComputerVisionAPI\ComputerVisionAPI\bin\System.Security.Cryptography.Primitives.dll
+C:\Demos\ComputerVisionBackend\ComputerVisionAPI\ComputerVisionAPI\bin\System.Security.Cryptography.X509Certificates.dll
+C:\Demos\ComputerVisionBackend\ComputerVisionAPI\ComputerVisionAPI\bin\Microsoft.Cognitive.CustomVision.Prediction.pdb
+C:\Demos\ComputerVisionBackend\ComputerVisionAPI\ComputerVisionAPI\bin\Microsoft.Cognitive.CustomVision.Training.pdb
